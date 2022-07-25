@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   CssBaseline,
+  Divider,
   Grid,
   Paper,
   Typography,
@@ -189,6 +190,18 @@ export const SignUp = () => {
               </Grid>
             </Grid>
             <Copyright sx={{ mt: 5 }} />
+            <Divider style={{ marginTop: 20 }} />
+            <UIPrimaryButton
+              fullWidth
+              color="secondary"
+              variant="contained"
+              onClick={() => {
+                navigate("/admin/login");
+              }}
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Admin Login
+            </UIPrimaryButton>
           </Box>
         </Box>
       </Grid>

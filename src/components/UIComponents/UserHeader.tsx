@@ -96,7 +96,7 @@ export const UserHeader = (props: PropsWithChildren<Props>) => {
       <Paper
         elevation={2}
         style={{
-          height: "100vh",
+          minHeight: 500,
           width: "93%",
           margin: 20,
           display: "flex",
