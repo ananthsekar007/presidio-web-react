@@ -113,65 +113,71 @@ export function ActiveAppointments() {
       <UserHeader>
         <div style={{ width: "96%", textAlign: "center" }}>
           <Typography variant={"h4"}>Active Appointments</Typography>
-          <TableContainer
-            component={Paper}
-            style={{ width: "90%", margin: "20px auto" }}
-          >
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Center Name</StyledTableCell>
-                  <StyledTableCell>Location</StyledTableCell>
-                  <StyledTableCell>Vaccination Type</StyledTableCell>
-                  <StyledTableCell>Date</StyledTableCell>
-                  <StyledTableCell align="center">Actions</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {appointments &&
-                  appointments.map((appointment) => (
-                    <TableRow>
-                      <TableCell>
-                        {appointment.VaccinationCenterModel.name}
-                      </TableCell>
-                      <TableCell>
-                        {appointment.VaccinationCenterModel.location}
-                      </TableCell>
-                      <TableCell>{appointment.vaccine_type}</TableCell>
-                      <TableCell>
-                        {moment(appointment.appointment_time).format(
-                          "MM-DD-YYYY"
-                        )}
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-evenly",
-                          gap: "10px",
-                        }}
-                      >
-                        <Button
-                          variant="outlined"
-                          onClick={() => {
-                            cancelAppointment({
-                              variables: {
-                                appointment_id: Number(
-                                  appointment.appointment_id
-                                ),
-                              },
-                            });
+          {appointments && appointments?.length > 0 ? (
+            <TableContainer
+              component={Paper}
+              style={{ width: "90%", margin: "20px auto" }}
+            >
+              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Center Name</StyledTableCell>
+                    <StyledTableCell>Location</StyledTableCell>
+                    <StyledTableCell>Vaccination Type</StyledTableCell>
+                    <StyledTableCell>Date</StyledTableCell>
+                    <StyledTableCell align="center">Actions</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {appointments &&
+                    appointments.map((appointment) => (
+                      <TableRow>
+                        <TableCell>
+                          {appointment.VaccinationCenterModel.name}
+                        </TableCell>
+                        <TableCell>
+                          {appointment.VaccinationCenterModel.location}
+                        </TableCell>
+                        <TableCell>{appointment.vaccine_type}</TableCell>
+                        <TableCell>
+                          {moment(appointment.appointment_time).format(
+                            "MM-DD-YYYY"
+                          )}
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-evenly",
+                            gap: "10px",
                           }}
                         >
-                          Cancel Appointment
-                        </Button>
-                        {/* <Button variant="contained">View Appointment</Button> */}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                          <Button
+                            variant="outlined"
+                            onClick={() => {
+                              cancelAppointment({
+                                variables: {
+                                  appointment_id: Number(
+                                    appointment.appointment_id
+                                  ),
+                                },
+                              });
+                            }}
+                          >
+                            Cancel Appointment
+                          </Button>
+                          {/* <Button variant="contained">View Appointment</Button> */}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Typography mt={4} variant={"body1"}>
+              No Active Appointments
+            </Typography>
+          )}
         </div>
       </UserHeader>
     </>

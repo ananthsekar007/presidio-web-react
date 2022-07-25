@@ -1,10 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 import { Typography } from "@mui/material";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { UITextField } from "../components/UIComponents/UITextField";
 import UserCenterList from "../components/UIComponents/UserCenterList";
 import { UserHeader } from "../components/UIComponents/UserHeader";
 import { BookAppointmentModal } from "../modals/BookAppointmentModal";
+import { filterByKey } from "../utils/utils";
 import { GetCentersForAdminResponseParams } from "./AdminVaccinationCenters";
 
 const GET_USER_CENTERS = gql`
@@ -27,20 +29,48 @@ export const Appointments: React.FunctionComponent = () => {
   const [selectedCenter, setSelectedCenter] = useState<number | null>();
   const [bookModalOpen, setBookModalOpen] = useState<boolean>(false);
 
+  const [filteredCenters, setFilteredCenters] = useState<
+    GetCentersForAdminResponseParams[]
+  >([]);
+
   const [centers, setCenters] = useState<GetCentersForAdminResponseParams[]>(
     []
   );
   const getCenters = useQuery<GetCenterForUsersResponse>(GET_USER_CENTERS);
 
-  useEffect(() => {
-    if (getCenters?.data && getCenters?.data?.get_centers_for_users) {
-      setCenters(getCenters?.data?.get_centers_for_users);
+  const filterCenters = (center: GetCentersForAdminResponseParams) => {
+    if (
+      filterByKey(
+        [
+          String(center?.name),
+          String(center?.location),
+          String(moment(center?.createdAt).format("DD-MM-YYYY")),
+        ],
+        searchText
+      )
+    ) {
+      return true;
     }
-  }, [getCenters]);
+    return false;
+  };
+
+  const filterData = () => {
+    const array: any[] = [];
+    getCenters?.data?.get_centers_for_users?.map((center) => {
+      if (searchText != null && searchText != "" && !filterCenters(center)) {
+        return;
+      }
+      array.push(center);
+    });
+    setFilteredCenters(array);
+  };
 
   useEffect(() => {
-    console.log(selectedCenter);
-  }, [selectedCenter]);
+    if (getCenters?.data && getCenters?.data?.get_centers_for_users) {
+      filterData();
+      // setCenters(getCenters?.data?.get_centers_for_users);
+    }
+  }, [getCenters?.data, searchText]);
 
   return (
     <>
@@ -64,8 +94,8 @@ export const Appointments: React.FunctionComponent = () => {
               marginTop: 20,
             }}
           >
-            {centers &&
-              centers.map((center) => (
+            {filteredCenters &&
+              filteredCenters?.map((center) => (
                 <UserCenterList
                   key={String(center.center_id)}
                   centerId={center.center_id}
