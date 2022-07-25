@@ -66,23 +66,20 @@ export function BookAppointmentModal(props: BookAppointmentProps) {
           vaccine_type: vaccineType,
         },
       },
-    });
+    })
+      .then(() => {
+        props?.closeModal();
+      })
+      .finally(() => {
+        props?.closeModal();
+      });
   };
 
-  useSuccessNotification([
-    createAppointmentResponse?.data?.create_appointment as any,
-  ]);
+  //   useSuccessNotification([
+  //     createAppointmentResponse?.data?.create_appointment as any,
+  //   ]);
 
-  useErrorNotification([createAppointmentResponse?.error as any]);
-
-  useEffect(() => {
-    if (
-      createAppointmentResponse?.data &&
-      createAppointmentResponse?.data?.create_appointment
-    ) {
-      props?.closeModal();
-    }
-  }, [createAppointmentResponse]);
+  //   useErrorNotification([createAppointmentResponse?.error as any]);
 
   return (
     <>

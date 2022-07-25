@@ -68,6 +68,10 @@ export function AdminVaccinationCenters() {
     }
   }, [getCenters]);
 
+  useEffect(() => {
+    console.log("The value of bool changes", addCenterModalOpen);
+  }, [addCenterModalOpen]);
+
   return (
     <>
       <AdminHeader>
@@ -119,6 +123,7 @@ export function AdminVaccinationCenters() {
       </AdminHeader>
       <AddVaccinationCenterModal
         closeModal={() => {
+          console.log("The value of bool changes called again");
           setAddCenterModalOpen(false);
         }}
         modalOpen={addCenterModalOpen}

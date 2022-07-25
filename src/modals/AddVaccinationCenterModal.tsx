@@ -48,18 +48,9 @@ export function AddVaccinationCenterModal(props: AddVaccinationCenterProps) {
     ],
   });
 
-  useSuccessNotification([createCenterResponse?.data?.create_center as any]);
+  //   useSuccessNotification([createCenterResponse?.data?.create_center as any]);
 
-  useErrorNotification([createCenterResponse?.error as any]);
-
-  useEffect(() => {
-    if (
-      createCenterResponse?.data &&
-      createCenterResponse?.data?.create_center
-    ) {
-      props?.closeModal();
-    }
-  }, [createCenterResponse]);
+  //   useErrorNotification([createCenterResponse?.error as any]);
 
   const confirmAdd = () => {
     createCenter({
@@ -69,7 +60,13 @@ export function AddVaccinationCenterModal(props: AddVaccinationCenterProps) {
           location,
         },
       },
-    });
+    })
+      .then(() => {
+        props?.closeModal();
+      })
+      .finally(() => {
+        props?.closeModal();
+      });
   };
 
   return (

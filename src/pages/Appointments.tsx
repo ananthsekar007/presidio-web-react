@@ -68,7 +68,6 @@ export const Appointments: React.FunctionComponent = () => {
   useEffect(() => {
     if (getCenters?.data && getCenters?.data?.get_centers_for_users) {
       filterData();
-      // setCenters(getCenters?.data?.get_centers_for_users);
     }
   }, [getCenters?.data, searchText]);
 
