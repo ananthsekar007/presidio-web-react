@@ -48,9 +48,9 @@ export function AddVaccinationCenterModal(props: AddVaccinationCenterProps) {
     ],
   });
 
-  //   useSuccessNotification([createCenterResponse?.data?.create_center as any]);
+  useSuccessNotification([createCenterResponse?.data?.create_center as any]);
 
-  //   useErrorNotification([createCenterResponse?.error as any]);
+  useErrorNotification([createCenterResponse?.error as any]);
 
   const confirmAdd = () => {
     createCenter({

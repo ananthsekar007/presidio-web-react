@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Grid, Typography } from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -99,6 +99,22 @@ export const AdminLogin = () => {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
+              </UIPrimaryButton>
+              <Divider
+                style={{
+                  marginTop: 30,
+                }}
+              />
+              <UIPrimaryButton
+                fullWidth
+                color="secondary"
+                variant="contained"
+                onClick={() => {
+                  navigate("/user/login");
+                }}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                User Login
               </UIPrimaryButton>
             </Box>
           </Box>

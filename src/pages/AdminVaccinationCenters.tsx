@@ -5,6 +5,10 @@ import AdminCenterList from "../components/UIComponents/AdminCenterList";
 import { AdminHeader } from "../components/UIComponents/AdminHeader";
 import { UIModel } from "../components/UIComponents/UIModal";
 import { UIPrimaryButton } from "../components/UIComponents/UIPrimaryButton";
+import {
+  useErrorNotification,
+  useSuccessNotification,
+} from "../hooks/useNotification";
 import { AddVaccinationCenterModal } from "../modals/AddVaccinationCenterModal";
 
 export const GET_CENTERS = gql`
@@ -62,15 +66,15 @@ export function AdminVaccinationCenters() {
 
   const getCenters = useQuery<GetCentersForAdminResponse>(GET_CENTERS);
 
+  useSuccessNotification([deleteCenterResponse?.data?.delete_center as any]);
+
+  useErrorNotification([deleteCenterResponse?.error as any]);
+
   useEffect(() => {
     if (getCenters?.data && getCenters?.data?.get_centers_for_admin) {
       setCenters(getCenters?.data?.get_centers_for_admin);
     }
   }, [getCenters]);
-
-  useEffect(() => {
-    console.log("The value of bool changes", addCenterModalOpen);
-  }, [addCenterModalOpen]);
 
   return (
     <>

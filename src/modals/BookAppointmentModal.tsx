@@ -75,11 +75,11 @@ export function BookAppointmentModal(props: BookAppointmentProps) {
       });
   };
 
-  //   useSuccessNotification([
-  //     createAppointmentResponse?.data?.create_appointment as any,
-  //   ]);
+  useSuccessNotification([
+    createAppointmentResponse?.data?.create_appointment as any,
+  ]);
 
-  //   useErrorNotification([createAppointmentResponse?.error as any]);
+  useErrorNotification([createAppointmentResponse?.error as any]);
 
   return (
     <>
