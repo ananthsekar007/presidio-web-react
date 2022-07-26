@@ -105,6 +105,9 @@ export function AdminVaccinationCenters() {
             </UIPrimaryButton>
           </div>
           <div style={{ marginTop: 20 }}>
+            {centers?.length === 0 && (
+              <Typography>No Vaccination Centers Available</Typography>
+            )}
             {centers &&
               centers.map((center) => (
                 <AdminCenterList

@@ -13,6 +13,10 @@ import Button from "@mui/material/Button";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { User } from "./Login";
 import moment from "moment";
+import {
+  useErrorNotification,
+  useSuccessNotification,
+} from "../hooks/useNotification";
 
 interface GetActiveAppointmentResponse {
   get_active_appointments: GetActiveAppointmentResponseParams[];
@@ -95,6 +99,7 @@ export function ActiveAppointments() {
     refetchQueries: [
       {
         query: GET_ACTIVE_APPOINTMENTS,
+        fetchPolicy: "no-cache",
       },
     ],
   });
@@ -107,6 +112,12 @@ export function ActiveAppointments() {
       setAppointments(getAppointments?.data?.get_active_appointments);
     }
   }, [getAppointments]);
+
+  useSuccessNotification([
+    cancelAppointmentResponse?.data?.cancel_appointment as any,
+  ]);
+
+  useErrorNotification([cancelAppointmentResponse?.error as any]);
 
   return (
     <>

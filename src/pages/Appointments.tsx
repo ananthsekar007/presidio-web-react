@@ -93,6 +93,9 @@ export const Appointments: React.FunctionComponent = () => {
               marginTop: 20,
             }}
           >
+            {filteredCenters?.length === 0 && (
+              <Typography>No Vaccination Centers Available</Typography>
+            )}
             {filteredCenters &&
               filteredCenters?.map((center) => (
                 <UserCenterList
